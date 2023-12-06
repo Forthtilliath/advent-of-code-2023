@@ -12,28 +12,26 @@ function main(): void {
     return;
   }
 
-  exec("input1", () => input1(input));
-  exec("input2", () => input2(input));
+  const [times1, distances1] = input.map((n) => n.match(/\d+/g)!.map(Number));
+  exec("input1", () => input_1and2(times1, distances1));
+  const [times2, distances2] = input
+    .map((n) => n.match(/\d+/g)!.join(""))
+    .map(Number);
+
+  exec("input2", () => input_1and2([times2], [distances2]));
 }
 
-function input1(input: string[]): number {
-  const [times, distances] = input.map((n) => n.match(/\d+/g)!.map(Number));
-
-  const ways: number[] = [];
-
-  for (let i in times) {
-    const results = Array.from({ length: times[i] }, (_, ms) => {
-      return (times[i] - ms) * ms;
-    });
-
-    const winnableResults = results.filter((res) => res > distances[i]);
-    ways.push(winnableResults.length)
+function calculateTraveled(time: number, distance: number) {
+  let ways: number = 0;
+  for (let ms = 0; ms < time; ms++) {
+    const traveled = (time - ms) * ms;
+    if (traveled > distance) ways++;
   }
-  return multiply(ways);
+  return ways;
 }
 
-function input2(input: string[]): number {
-  return 0;
+function input_1and2(times: number[], distances: number[]): number {
+  return multiply(times.map((time,i) => calculateTraveled(time, distances[i])));
 }
 
 main();
