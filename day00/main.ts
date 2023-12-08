@@ -6,7 +6,7 @@ const DAY = 6;
 
 function main(): void {
   console.clear();
-  const input = readFile(DAY, "input", false);
+  const input = readFile(DAY, "sample", true);
   if (!input.length) {
     console.error("Invalid input data");
     return;
@@ -16,12 +16,20 @@ function main(): void {
   exec("input2", () => input2(input));
 }
 
-function input1(input: string): number {
+function input1(input: string[]): number {
+  for (let line of input) {
+    console.log(line);
+  }
   return 0;
 }
 
-function input2(input: string): number {
+function input2(input: string[]): number {
+  for (let line of input) {
+    console.log(line);
+  }
   return 0;
 }
+
+main();
 
 main();
