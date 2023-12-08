@@ -2,9 +2,9 @@
   "name": "aoc-2023",
   "version": "1.0.0",
   "description": "",
-  "main": "day06/main.ts",
+  "main": "day07/main.ts",
   "scripts": {
-    "dev": "tsnd --respawn day06/main"
+    "dev": "tsnd --respawn day07/main"
   },
   "keywords": [],
   "author": "",
