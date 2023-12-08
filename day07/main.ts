@@ -6,7 +6,8 @@ import { exec, readFile } from "../utils";
 
 const DAY = 7;
 
-export const CARD_VALUES = Object.freeze({
+// prettier-ignore
+export const CARD_VALUES_1 = Object.freeze({
   "2": "0",
   "3": "1",
   "4": "2",
@@ -15,11 +16,28 @@ export const CARD_VALUES = Object.freeze({
   "7": "5",
   "8": "6",
   "9": "7",
-  T: "8",
-  J: "9",
-  Q: "A",
-  K: "B",
-  A: "C",
+  "T": "8",
+  "J": "9",
+  "Q": "A",
+  "K": "B",
+  "A": "C",
+} as const);
+
+// prettier-ignore
+export const CARD_VALUES_2 = Object.freeze({
+  "J": "0",
+  "2": "1",
+  "3": "2",
+  "4": "3",
+  "5": "4",
+  "6": "5",
+  "7": "6",
+  "8": "7",
+  "9": "8",
+  "T": "9",
+  "Q": "A",
+  "K": "B",
+  "A": "C",
 } as const);
 
 export const HAND_TYPE = Object.freeze({
@@ -41,49 +59,72 @@ function main(): void {
   }
 
   exec("input1", () => input1(input));
-  // exec("input2", () => input2(input));
+  exec("input2", () => input2(input));
 }
 
-/**
- * - [x] Récupérer la valeur de chaque main
- * - [ ] Trier les mains
- * - [ ] Trier les mains identiques
- * - [ ] Calculer le score (position * bid)
- */
 function input1(input: string[]): number {
   const hands = new Map<string[], HandDetail>();
 
   for (let line of input) {
-    hands.set(...parseLine(line));
+    hands.set(...parseLine(line, CARD_VALUES_1));
   }
 
   // first to last
   const handsSorted = toSortedMap(hands, compareHands).reverse();
 
-  return handsSorted.reduce((n, [,{bid}], i) => n + bid * (i+1),0);
+  return handsSorted.reduce((n, [, { bid }], i) => n + bid * (i + 1), 0);
 }
 
 function input2(input: string[]): number {
-  return 0;
+  const hands = new Map<string[], HandDetail>();
+
+  for (let line of input) {
+    hands.set(...parseLine(line, CARD_VALUES_2, true));
+  }
+
+  // first to last
+  const handsSorted = toSortedMap(hands, compareHands).reverse();
+  console.log(handsSorted);
+
+  return handsSorted.reduce((n, [, { bid }], i) => n + bid * (i + 1), 0);
 }
 
-function parseLine(line: string): [string[], HandDetail] {
+function parseLine(
+  line: string,
+  cardsValue: CardsValue,
+  hasJokers = false
+): [string[], HandDetail] {
   const [hand, bid] = line.split(" ");
-  const cards = hand.split("");
+  let cards = hand.split("");
+  const handValue = convertHand(cards, cardsValue);
+
+  if (hasJokers) {
+    const cardsNotJoker = cards.filter((card) => card !== "J");
+
+    if (cardsNotJoker.length > 0) {
+      const groups = groupBy(cardsNotJoker);
+      const [bestCard] = Object.entries(groups).reduce((best, group) => {
+        if (best[1] > group[1]) return best;
+        return group;
+      });
+
+      cards = cards.map((card) => (card === "J" ? bestCard : card));
+    }
+  }
 
   const value = {
     bid: +bid,
     handType: handScore(cards),
-    handValue: convertHand(cards),
+    handValue,
   };
 
   return [cards, value];
 }
 
-function convertHand(hand: string[]): string {
+function convertHand(hand: string[], cardsValue: CardsValue): string {
   let res = "";
   for (let card of hand) {
-    res += CARD_VALUES[card as Card];
+    res += cardsValue[card as Card];
   }
 
   return res;
