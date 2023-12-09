@@ -31,5 +31,3 @@ function input2(input: string[]): number {
 }
 
 main();
-
-main();
