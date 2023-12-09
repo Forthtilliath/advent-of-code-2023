@@ -2,12 +2,12 @@
   "name": "aoc-2023",
   "version": "1.0.0",
   "description": "",
-  "main": "day08/main.ts",
+  "main": "day09/main.ts",
   "scripts": {
-    "dev": "tsnd --respawn day08/main"
+    "dev": "tsnd --respawn day09/main"
   },
   "keywords": [],
-  "author": "",
+  "author": "Forth",
   "license": "ISC",
   "devDependencies": {
     "@types/lodash": "^4.14.202",

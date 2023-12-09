@@ -12,8 +12,8 @@ function main(): void {
     return;
   }
 
-  exec("input1", () => input1(input));
-  exec("input2", () => input2(input));
+  exec("input1", () => input1(input.slice()));
+  exec("input2", () => input2(input.slice()));
 }
 
 function input1(input: string[]): number {
