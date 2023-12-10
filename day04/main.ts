@@ -1,4 +1,6 @@
-import { sum } from "../utils";
+import { sum } from "../helpers/array";
+
+import '../helpers/extends'
 
 const N_WINNING = 10;
 
