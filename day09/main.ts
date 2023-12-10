@@ -37,7 +37,7 @@ function calculateExtrapolatedSum(
   return sum;
 }
 
-function generateNextSequence(sequence: number[]): number[] {
+export function generateNextSequence(sequence: number[]): number[] {
   let nextSequence: number[] = [];
   for (let i = 0; i < sequence.length - 1; i++) {
     nextSequence.push(sequence[i + 1] - sequence[i]);

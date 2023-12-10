@@ -43,7 +43,7 @@ export function input2(input: string[]): number {
   return pathLengths.reduce((a, b) => getPPCM(a, b));
 }
 
-function generateMap(input: string[]): Map<string, { L: string; R: string }> {
+export function generateMap(input: string[]): Map<string, { L: string; R: string }> {
   let map = new Map<string, { L: string; R: string }>();
 
   for (let line of input) {
