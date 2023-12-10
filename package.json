@@ -2,9 +2,14 @@
   "name": "aoc-2023",
   "version": "1.0.0",
   "description": "",
-  "main": "day09/main.ts",
+  "main": "main.ts",
   "scripts": {
-    "dev": "tsnd --respawn day09/main"
+    "dev": "tsnd --respawn main --watch **/*.ts",
+    "dev:sample": "tsnd --respawn main --watch **/*.ts file=sample",
+    "dev:sample1": "tsnd --respawn main --watch **/*.ts file=sample1",
+    "dev:sample2": "tsnd --respawn main --watch **/*.ts file=sample2",
+    "dev:input": "tsnd --respawn main --watch **/*.ts file=input",
+    "test": "vitest -w"
   },
   "keywords": [],
   "author": "Forth",
@@ -13,6 +18,9 @@
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.10.2",
     "chalk": "^4.1.2",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "typescript": "^5.3.3",
+    "vitest": "^1.0.4",
+    "zod": "^3.22.4"
   }
 }

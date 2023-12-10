@@ -1,31 +1,19 @@
-import { exec, readFile } from "../utils";
 import { mapValues } from "lodash";
 
 type Color = "blue" | "green" | "red";
-
-const REGEX_1 =
-  /(Game (?<game>\d+))|((?<blue>\d+) blue)|((?<red>\d+) red)|((?<green>\d+) green)/g;
 type Group = Record<"game" | Color, string> | undefined;
-const REGEX_2 = /((?<blue>\d+) blue)|((?<red>\d+) red)|((?<green>\d+) green)/g;
 
-function main() {
-  console.clear();
-  const input = readFile(2, "input");
-  if (!input.length) return;
-
-  exec("input1", () => input1(input));
-  exec("input2", () => input2(input));
-}
-
-function input1(input: string[]): number {
+export function input1(input: string[]): number {
   const elfCubes = { red: 12, green: 13, blue: 14 };
   let possibleGames = 0;
+  const regex =
+    /(Game (?<game>\d+))|((?<blue>\d+) blue)|((?<red>\d+) red)|((?<green>\d+) green)/g;
 
-  input.forEach((line) => {
+  for (let line of input) {
     let possibleGame = true;
     let idGame = 0;
 
-    for (const cube of line.matchAll(REGEX_1)) {
+    for (const cube of line.matchAll(regex)) {
       const { game, ...colors } = mapValues(cube.groups as Group, Number);
 
       if (game) idGame = game;
@@ -34,24 +22,25 @@ function input1(input: string[]): number {
       for (color in elfCubes) {
         if (elfCubes[color] < colors[color]) {
           possibleGame = false;
-          return;
+          continue;
         }
       }
     }
 
     if (possibleGame) possibleGames += idGame;
-  });
+  }
 
   return possibleGames;
 }
 
-function input2(input: string[]): number {
+export function input2(input: string[]): number {
+  const regex = /((?<blue>\d+) blue)|((?<red>\d+) red)|((?<green>\d+) green)/g;
   let power = 0;
 
-  input.forEach((line) => {
+  for (let line of input) {
     const minimalSet = { red: -Infinity, green: -Infinity, blue: -Infinity };
 
-    for (const cube of line.matchAll(REGEX_2)) {
+    for (const cube of line.matchAll(regex)) {
       const { game, ...colors } = mapValues(cube.groups as Group, Number);
 
       let color: Color;
@@ -62,9 +51,7 @@ function input2(input: string[]): number {
       }
     }
     power += minimalSet.red * minimalSet.green * minimalSet.blue;
-  });
+  }
 
   return power;
 }
-
-main();

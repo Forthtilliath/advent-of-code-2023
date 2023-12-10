@@ -1,28 +1,20 @@
 /// <reference path="main.d.ts"/>
 
-import { exec, multiply, sum, readFile } from "../utils";
+import { multiply, sum } from "../helpers/array";
+import "../helpers/extends";
 
-function main() {
-  console.clear();
-  const input = readFile(3, "input");
-  if (!input.length) return;
-
-  exec("input1", () => input1(input)); // 519444
-  exec("input2", () => input2(input)); // 74528807
-}
-
-function input1(input: string[]): number {
+export function input1(input: string[]): number {
   let previousNumbers: numberWithIndex[] = [];
   let previousSymbols: number[] = [];
   let sum = 0;
 
-  input.forEach((line) => {
+  for (let line of input) {
     const currentNumbers: numberWithIndex[] = [];
     const currentSymbols: number[] = [];
 
     // Rempli les tableaux de nombres et de symboles
     const regex = /(?<number>\d+)|(?<symbol>[^.])/g;
-    const matches = Array.from(line.matchAll(regex)) as Match[];
+    const matches = line.matchAllAsArray<Match>(regex);
     matches.forEach((match) => {
       if (isMatchWithNumber(match)) {
         currentNumbers.push({
@@ -60,12 +52,12 @@ function input1(input: string[]): number {
     });
 
     previousSymbols = currentSymbols;
-  });
+  }
 
   return sum;
 }
 
-function input2(input: string[]): number {
+export function input2(input: string[]): number {
   let previousNumbers: numberWithIndex[] = [];
   let previousSymbols: number[] = [];
   let gears: Gear = {};
@@ -89,7 +81,7 @@ function input2(input: string[]): number {
 
     // Rempli les tableaux de nombres et de symboles
     const regex = /(?<number>\d+)|(?<symbol>[\*])/g;
-    const matches = Array.from(line.matchAll(regex)) as Match[];
+    const matches = line.matchAllAsArray<Match>(regex);
     matches.forEach((match) => {
       if (isMatchWithNumber(match)) {
         currentNumbers.push({
@@ -130,8 +122,6 @@ function input2(input: string[]): number {
   return sum(arrGears.map(multiply));
 }
 
-main();
-
 function isMatchWithNumber(match: Match): match is MatchWithNumber {
   return Boolean(match?.groups?.number);
 }
@@ -150,17 +140,13 @@ function isPartNumber(
   number: numberWithIndex,
   symbolIndexes: number[],
   filter: boolean
-) {
+): number[] | boolean {
   const indexStart = number.index - 1;
   const indexEnd = number.index + number.value.toString().length;
 
   if (filter) {
-    return symbolIndexes.filter(
-      (index) => indexStart <= index && index <= indexEnd
-    );
+    return symbolIndexes.filter((i) => i.isInRange(indexStart, indexEnd));
   } else {
-    return symbolIndexes.some(
-      (index) => indexStart <= index && index <= indexEnd
-    );
+    return symbolIndexes.some((i) => i.isInRange(indexStart, indexEnd));
   }
 }

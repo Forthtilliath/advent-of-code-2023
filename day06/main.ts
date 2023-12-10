@@ -1,24 +1,18 @@
 /// <reference path="main.d.ts"/>
 
-import { exec, multiply, readFile } from "../utils";
+import { multiply } from "../helpers/array";
+import "../helpers/extends";
 
-const DAY = 6;
+export function input1(input: string[]) {
+  const [times, distances] = input.map((n) => n.filterNumbers());
+  return input_1and2(times, distances);
+}
 
-function main(): void {
-  console.clear();
-  const input = readFile(DAY, "input");
-  if (!input.length) {
-    console.error("Invalid input data");
-    return;
-  }
-
-  const [times1, distances1] = input.map((n) => n.match(/\d+/g)!.map(Number));
-  exec("input1", () => input_1and2(times1, distances1));
-  const [times2, distances2] = input
+export function input2(input: string[]) {
+  const [times, distances] = input
     .map((n) => n.match(/\d+/g)!.join(""))
     .map(Number);
-
-  exec("input2", () => input_1and2([times2], [distances2]));
+  return input_1and2([times], [distances]);
 }
 
 function calculateTraveled(time: number, distance: number) {
@@ -31,7 +25,7 @@ function calculateTraveled(time: number, distance: number) {
 }
 
 function input_1and2(times: number[], distances: number[]): number {
-  return multiply(times.map((time,i) => calculateTraveled(time, distances[i])));
+  return multiply(
+    times.map((time, i) => calculateTraveled(time, distances[i]))
+  );
 }
-
-main();

@@ -1,10 +1,6 @@
 /// <reference path="main.d.ts"/>
 
-import { groupBy } from "../helpers/groupBy";
-import { toSorted, toSortedMap } from "../helpers/toSorted";
-import { exec, readFile } from "../utils";
-
-const DAY = 7;
+import "../helpers/extends";
 
 // prettier-ignore
 export const CARD_VALUES_1 = Object.freeze({
@@ -50,19 +46,7 @@ export const HAND_TYPE = Object.freeze({
   HIGH_CARD: 0,
 } as const);
 
-function main(): void {
-  console.clear();
-  const input = readFile(DAY, "input", true);
-  if (!input.length) {
-    console.error("Invalid input data");
-    return;
-  }
-
-  exec("input1", () => input1(input));
-  exec("input2", () => input2(input));
-}
-
-function input1(input: string[]): number {
+export function input1(input: string[]): number {
   const hands = new Map<string[], HandDetail>();
 
   for (let line of input) {
@@ -70,12 +54,12 @@ function input1(input: string[]): number {
   }
 
   // first to last
-  const handsSorted = toSortedMap(hands, compareHands).reverse();
+  const handsSorted = Array.from(hands).toSorted(compareHands).reverse();
 
   return handsSorted.reduce((n, [, { bid }], i) => n + bid * (i + 1), 0);
 }
 
-function input2(input: string[]): number {
+export function input2(input: string[]): number {
   const hands = new Map<string[], HandDetail>();
 
   for (let line of input) {
@@ -83,8 +67,7 @@ function input2(input: string[]): number {
   }
 
   // first to last
-  const handsSorted = toSortedMap(hands, compareHands).reverse();
-  console.log(handsSorted);
+  const handsSorted = Array.from(hands).toSorted(compareHands).reverse();
 
   return handsSorted.reduce((n, [, { bid }], i) => n + bid * (i + 1), 0);
 }
@@ -102,7 +85,7 @@ function parseLine(
     const cardsNotJoker = cards.filter((card) => card !== "J");
 
     if (cardsNotJoker.length > 0) {
-      const groups = groupBy(cardsNotJoker);
+      const groups = cardsNotJoker.groupBy();
       const [bestCard] = Object.entries(groups).reduce((best, group) => {
         if (best[1] > group[1]) return best;
         return group;
@@ -142,7 +125,7 @@ function compareHands<T extends [string[], HandDetail]>(
 }
 
 function handScore(hand: string[]): HandTypeScore {
-  const groups = groupBy(hand);
+  const groups = hand.groupBy();
 
   switch (Object.keys(groups).length) {
     case 1: {
@@ -170,5 +153,3 @@ function handScore(hand: string[]): HandTypeScore {
     }
   }
 }
-
-main();

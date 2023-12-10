@@ -19,12 +19,8 @@ type MatchWithSymbol = [match: string, undefined, string] & {
 
 type Match = MatchWithNumber | MatchWithSymbol;
 
-// type Gear = Record<number,Record<number, number[]>>;
 type Gear = {
   [row: number]: {
-    [column: number]: number[]
-  }
-}
-
-// type Gear = number[][][]
-// gears[1][5] = [512, 145]
+    [column: number]: number[];
+  };
+};

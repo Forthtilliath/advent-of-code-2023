@@ -1,7 +1,6 @@
 /// <reference path="main.d.ts"/>
 
-import { chunkMap } from "../helpers/chunk";
-import { exec, readFile } from "../utils";
+import "../helpers/extends";
 
 export const CATEGORIES = [
   "seed",
@@ -14,21 +13,7 @@ export const CATEGORIES = [
   "location",
 ] as const;
 
-const DAY = 5;
-
-function main(): void {
-  console.clear();
-  const input = readFile(DAY, "input", false);
-  if (!input.length) {
-    console.error("Invalid input data");
-    return;
-  }
-
-  exec("input1", () => input1(input));
-  exec("input2", () => input2(input)); // 6472060
-}
-
-function input1(input: string): number {
+export function input1(input: string): number {
   const groups = input.split("\r\n\r\n");
   const seeds: number[] = groups.shift()!.match(/\d+/g)!.map(Number);
   const categories: Categorie[] = groups.map(getConvertion);
@@ -43,10 +28,10 @@ function input1(input: string): number {
   return Math.min(...convertedSeeds);
 }
 
-function input2(input: string): number {
+export function input2(input: string): number {
   const groups = input.split("\r\n\r\n");
-  const seeds: number[] = groups.shift()!.match(/\d+/g)!.map(Number);
-  const seedsBy2 = chunkMap(seeds, 2, getSeedRange) as [number, number][];
+  const seeds = groups.shift()!.match(/\d+/g)!.map(Number);
+  const seedsBy2 = seeds.chunkMap(2, getSeedRange);
   const categories: Categorie[] = groups.map(getConvertion);
 
   const updatedSeeds = categories.reduce((res, categorie) => {
@@ -55,8 +40,6 @@ function input2(input: string): number {
 
   return Math.min(...updatedSeeds.flat(100));
 }
-
-main();
 
 function getConvertion(line: string) {
   return line
@@ -110,13 +93,7 @@ function convert_part2(
   [sMin, sMax]: [number, number],
   categorie: Categorie
 ): number[][][] {
-  // let convertions = categorie.filter(
-  //   ([_, source, range]) => !(source > sMax || source + range < sMin)
-  // );
   let convertions = categorie.filter((conv) => isInRange(conv, sMin, sMax));
-  // let convertions = categorie.filter(
-  //   ([, src, range]) => sMin <= src + range - 1 && src <= sMax
-  // )
 
   let res: number[][][] = [];
   let leftover: number[][] = [[sMin, sMax]];

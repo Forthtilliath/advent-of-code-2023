@@ -1,25 +1,11 @@
 /// <reference path="main.d.ts"/>
 
-import chalk from "chalk";
-import { exec, readFile } from "../utils";
-
-const DAY = 8;
+import "../helpers/extends";
+import { getPPCM } from "../helpers/number";
 
 const REGEX = /(?<position>\w{3}) = \((?<from>\w{3}), (?<to>\w{3})\)/;
 
-function main(): void {
-  console.clear();
-  const input = readFile(DAY, "input", true);
-  if (!input.length) {
-    console.error("Invalid input data");
-    return;
-  }
-
-  exec("input1", () => input1(input.slice())); // 21_251
-  exec("input2", () => input2(input.slice())); // 11_678_319_315_857
-}
-
-function input1(input: string[]): number {
+export function input1(input: string[]): number {
   const directions = input[0];
   let map = generateMap(input.slice(2));
   let currentMap = "AAA";
@@ -36,7 +22,7 @@ function input1(input: string[]): number {
   return index;
 }
 
-function input2(input: string[]): number {
+export function input2(input: string[]): number {
   const directions = input[0];
   let map = generateMap(input.slice(2));
 
@@ -54,10 +40,8 @@ function input2(input: string[]): number {
     pathLengths.push(pathLength);
   }
 
-  return pathLengths.reduce((a, b) => getPPCM(a, b));;
+  return pathLengths.reduce((a, b) => getPPCM(a, b));
 }
-
-main();
 
 function generateMap(input: string[]): Map<string, { L: string; R: string }> {
   let map = new Map<string, { L: string; R: string }>();
@@ -71,17 +55,4 @@ function generateMap(input: string[]): Map<string, { L: string; R: string }> {
   }
 
   return map;
-}
-
-function getPPCM(max: number, min: number): number {
-  if (min > max) {
-    [max, min] = [min, max];
-  }
-  let result = max;
-
-  while (result % min !== 0) {
-    result += max;
-  }
-
-  return result;
 }
