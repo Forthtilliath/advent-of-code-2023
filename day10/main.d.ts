@@ -5,6 +5,11 @@ declare global {
     col: number;
     neighbors: { row: number; col: number }[];
   };
+
+  type Coord = {
+    row: number;
+    col: number;
+  }
 }
 
 export {};

@@ -189,6 +189,9 @@ Object.defineProperty(Array.prototype, "toMatrix", {
   configurable: false,
 });
 
+/******************************************************/
+/******************** PRINT_MATRIX ********************/
+/******************************************************/
 Object.defineProperty(Array.prototype, "printMatrix", {
   value: function <T, U>(this: T[][], mapfn = (v: T, k: number) => v) {
     for (let row of this) {

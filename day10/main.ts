@@ -1,50 +1,47 @@
 /// <reference path="main.d.ts"/>
 
-import chalk from "chalk";
 import "../helpers/extends";
 
-/**
- * + 1 - Generate the map : {@link generateMap}
- * + 2 - Update the start pipe to remove false connection {@link updateStartPipe}
- * + 3 - Remove useless pipes (S) {@link removeUselessPipes}
- *
- */
+const BLOCK = "0";
+
 export function input1(input: string[]): number {
   const { matrix, start } = generateMatrix(input);
   if (!start) throw new Error("Start not found");
 
-  matrix.printMatrix((el) => el.value);
-  const paths: number[] = [];
-
-  start.value = findStartType(matrix, start);
+  start.value = getStartType(matrix, start);
   start.neighbors = getNeighbors(matrix, start.value, start.row, start.col);
 
-  let from: Tile = start;
-  let destination: Tile = matrix[start.neighbors[0].row][start.neighbors[0].col];
-  let step = 1;
-  do {
-    const nextDest = getDestination(matrix, from, destination);
-    if (!nextDest) break;
-    [from, destination] = [destination, nextDest];
-    step++;
-  } while (destination && destination !== start);
+  const paths: Tile[] = getPath(matrix, start);
 
-  if (destination === start) {
-    paths.push(step / 2);
-  }
-
-  return Math.min(...paths);
+  return paths.length / 2;
 }
 
 export function input2(input: string[]): number {
-  for (let line of input) {
-    console.log(line);
+  const { matrix, start } = generateMatrix(input);
+  if (!start) throw new Error("Start not found");
+
+  start.value = getStartType(matrix, start);
+  start.neighbors = getNeighbors(matrix, start.value, start.row, start.col);
+
+  const matrixDoubled: Tile[][] = generatedMatrixDoubled(matrix);
+
+  const path: Tile[] = getPath(matrix, start);
+  fillPath(matrixDoubled, path);
+  fillOutsidePath(matrixDoubled);
+  matrixDoubled.printMatrix((el) => el.value);
+
+  let sum = 0;
+  for (let row = 1; row < matrixDoubled.length; row += 2) {
+    for (let col = 1; col < matrixDoubled[0].length; col += 2) {
+      if (matrixDoubled[row][col].value != BLOCK) sum++;
+    }
   }
-  return 0;
+  return sum;
 }
 
 function generateMatrix(input: string[]) {
   let start: Tile | undefined;
+
   const matrix: Tile[][] = input.toMatrix(function (el, [row, col], m) {
     const tile = {
       value: el,
@@ -57,11 +54,28 @@ function generateMatrix(input: string[]) {
     }
     return tile;
   });
+
   return { matrix, start };
 }
 
+function generatedMatrixDoubled(matrix: Tile[][]): Tile[][] {
+  return Array.from({ length: matrix.length * 2 + 1 }, (_, row) => {
+    return Array.from({ length: matrix[0].length * 2 + 1 }, (_, col) => {
+      if (row % 2 === 1 && col % 2 === 1) {
+        return matrix[(row - 1) / 2][(col - 1) / 2];
+      }
+      return {
+        value: ".",
+        row,
+        col,
+        neighbors: [],
+      };
+    });
+  });
+}
+
 function getNeighbors(matrix: Tile[][], value: string, row: number, col: number) {
-  const neighbors: { row: number; col: number }[] = [];
+  const neighbors: Coord[] = [];
 
   switch (value) {
     case ".":
@@ -91,10 +105,22 @@ function getNeighbors(matrix: Tile[][], value: string, row: number, col: number)
       neighbors.push({ row: row, col: col + 1 });
       break;
   }
-  return neighbors.filter((n) => isValidRowCol(matrix, n.row, n.col));
+  return neighbors.filter((n) => isInsideMatrix(matrix, n.row, n.col));
 }
 
-function isValidRowCol(matrix: Tile[][], row: number, col: number): boolean {
+function getArroundTiles(matrix: Tile[][], tile: Tile): Coord[] {
+  const neighbors = [
+    { row: tile.row - 1, col: tile.col },
+    { row: tile.row, col: tile.col + 1 },
+    { row: tile.row + 1, col: tile.col },
+    { row: tile.row, col: tile.col - 1 },
+  ];
+  return neighbors.filter(
+    ({ row, col }) => isInsideMatrix(matrix, row, col) && matrix[row][col].value !== BLOCK
+  );
+}
+
+function isInsideMatrix(matrix: Tile[][], row: number, col: number): boolean {
   return row >= 0 && row < matrix.length && col >= 0 && col < matrix[0].length;
 }
 
@@ -105,30 +131,87 @@ function getDestination(matrix: Tile[][], from: Tile, tile: Tile): Tile | null {
   return matrix[dest.row][dest.col];
 }
 
-function findStartType(matrix: Tile[][], start: Tile) {
+function getStartType(matrix: Tile[][], start: Tile) {
   const top = matrix[start.row - 1][start.col];
   const right = matrix[start.row][start.col + 1];
   const bottom = matrix[start.row + 1][start.col];
   const left = matrix[start.row][start.col - 1];
+
   let tileTypes = ["|", "-", "L", "J", "7", "F"];
 
-  // Si la tuile est un de gauche est un '|', 'J', '7', elle n'est pas un voisin de start
+  // Si la tuile de gauche est un '|', 'J', '7', alors elle n'est pas un voisin de start
   // On retire donc toutes les tuiles qui pourraient rejoindre gauche
-  if (left && ["|", "J", "7"].includes(left.value)) {
-    tileTypes = tileTypes.filter((t) => !["-", "J", "7"].includes(t));
-  }
-  if (top && ["-", "L", "J"].includes(top.value)) {
+  if (!top || [".", "-", "L", "J"].includes(top.value)) {
     tileTypes = tileTypes.filter((t) => !["|", "L", "J"].includes(t));
   }
-  if (right && ["|", "L", "F"].includes(right.value)) {
+  if (!right || [".", "|", "L", "F"].includes(right.value)) {
     tileTypes = tileTypes.filter((t) => !["-", "L", "F"].includes(t));
   }
-  if (bottom && ["-", "7", "F"].includes(bottom.value)) {
+  if (!bottom || [".", "-", "7", "F"].includes(bottom.value)) {
     tileTypes = tileTypes.filter((t) => !["|", "7", "F"].includes(t));
+  }
+  if (!left || [".", "|", "J", "7"].includes(left.value)) {
+    tileTypes = tileTypes.filter((t) => !["-", "J", "7"].includes(t));
   }
 
   if (tileTypes.length !== 1) {
     throw new Error("Start type not found");
   }
   return tileTypes[0];
+}
+
+function getPath(matrix: Tile[][], start: Tile) {
+  const paths: Tile[] = [start];
+  let from: Tile = start;
+  let destination: Tile = matrix[start.neighbors[0].row][start.neighbors[0].col];
+  let step = 1;
+  do {
+    const nextDest = getDestination(matrix, from, destination);
+    if (!nextDest) break;
+    [from, destination] = [destination, nextDest];
+    paths.push(from);
+  } while (destination && destination !== start);
+
+  return paths;
+}
+
+function fillPath(matrixDoubled: Tile[][], path: Tile[]) {
+  const pathsSet = new Set(path.map((tile) => `${tile.row * 2 + 1}:${tile.col * 2 + 1}`));
+
+  for (let row = 0; row < matrixDoubled.length; row++) {
+    for (let col = 0; col < matrixDoubled[0].length; col++) {
+      matrixDoubled[row][col].row = row;
+      matrixDoubled[row][col].col = col;
+      if (pathsSet.has(`${row}:${col}`)) {
+        const neighbors = getNeighbors(matrixDoubled, matrixDoubled[row][col].value, row, col);
+        matrixDoubled[row][col].value = BLOCK;
+        for (const n of neighbors) matrixDoubled[n.row][n.col].value = BLOCK;
+      }
+    }
+  }
+}
+
+function fillOutsidePath(matrixDoubled: Tile[][]) {
+  const flowMap = breadthFirstSearch(matrixDoubled, 0, 0);
+  for (const tile of flowMap.values()) {
+    matrixDoubled[tile.row][tile.col].value = BLOCK;
+  }
+}
+
+function breadthFirstSearch(matrix: Tile[][], row: number, col: number) {
+  const flowMap = new Map();
+  const frontier: Coord[] = [];
+  frontier.push({ row, col });
+  flowMap.set(`${row}:${col}`, { row, col });
+
+  while (frontier.length > 0) {
+    const cell = frontier.shift()!;
+    const neighbors = getArroundTiles(matrix, matrix[cell.row][cell.col]);
+    for (const neighbor of neighbors) {
+      if (flowMap.has(`${neighbor.row}:${neighbor.col}`)) continue;
+      frontier.push(neighbor);
+      flowMap.set(`${neighbor.row}:${neighbor.col}`, neighbor);
+    }
+  }
+  return flowMap;
 }
