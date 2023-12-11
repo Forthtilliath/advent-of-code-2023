@@ -28,7 +28,6 @@ export function input2(input: string[]): number {
   const path: Tile[] = getPath(matrix, start);
   fillPath(matrixDoubled, path);
   fillOutsidePath(matrixDoubled);
-  matrixDoubled.printMatrix((el) => el.value);
 
   let sum = 0;
   for (let row = 1; row < matrixDoubled.length; row += 2) {
@@ -39,7 +38,7 @@ export function input2(input: string[]): number {
   return sum;
 }
 
-function generateMatrix(input: string[]) {
+export function generateMatrix(input: string[]) {
   let start: Tile | undefined;
 
   const matrix: Tile[][] = input.toMatrix(function (el, [row, col], m) {
@@ -74,7 +73,7 @@ function generatedMatrixDoubled(matrix: Tile[][]): Tile[][] {
   });
 }
 
-function getNeighbors(matrix: Tile[][], value: string, row: number, col: number) {
+export function getNeighbors(matrix: Tile[][], value: string, row: number, col: number) {
   const neighbors: Coord[] = [];
 
   switch (value) {
@@ -108,7 +107,7 @@ function getNeighbors(matrix: Tile[][], value: string, row: number, col: number)
   return neighbors.filter((n) => isInsideMatrix(matrix, n.row, n.col));
 }
 
-function getArroundTiles(matrix: Tile[][], tile: Tile): Coord[] {
+export function getArroundTiles(matrix: Tile[][], tile: Tile): Coord[] {
   const neighbors = [
     { row: tile.row - 1, col: tile.col },
     { row: tile.row, col: tile.col + 1 },
@@ -120,22 +119,22 @@ function getArroundTiles(matrix: Tile[][], tile: Tile): Coord[] {
   );
 }
 
-function isInsideMatrix(matrix: Tile[][], row: number, col: number): boolean {
+export function isInsideMatrix(matrix: Tile[][], row: number, col: number): boolean {
   return row >= 0 && row < matrix.length && col >= 0 && col < matrix[0].length;
 }
 
-function getDestination(matrix: Tile[][], from: Tile, tile: Tile): Tile | null {
+export function getDestination(matrix: Tile[][], from: Tile, tile: Tile): Tile | null {
   const dest = tile.neighbors.find((n) => n.row !== from.row || n.col !== from.col);
   if (dest === undefined) return null;
 
   return matrix[dest.row][dest.col];
 }
 
-function getStartType(matrix: Tile[][], start: Tile) {
-  const top = matrix[start.row - 1][start.col];
-  const right = matrix[start.row][start.col + 1];
-  const bottom = matrix[start.row + 1][start.col];
-  const left = matrix[start.row][start.col - 1];
+export function getStartType(matrix: Tile[][], start: Tile) {
+  const top = matrix[start.row - 1]?.[start.col];
+  const right = matrix[start.row]?.[start.col + 1];
+  const bottom = matrix[start.row + 1]?.[start.col];
+  const left = matrix[start.row]?.[start.col - 1];
 
   let tileTypes = ["|", "-", "L", "J", "7", "F"];
 
@@ -160,7 +159,7 @@ function getStartType(matrix: Tile[][], start: Tile) {
   return tileTypes[0];
 }
 
-function getPath(matrix: Tile[][], start: Tile) {
+export function getPath(matrix: Tile[][], start: Tile) {
   const paths: Tile[] = [start];
   let from: Tile = start;
   let destination: Tile = matrix[start.neighbors[0].row][start.neighbors[0].col];
