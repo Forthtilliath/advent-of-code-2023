@@ -8,7 +8,6 @@
     "dev:sample": "tsnd --respawn main --watch **/*.ts file=sample",
     "dev:sample1": "tsnd --respawn main --watch **/*.ts file=sample1",
     "dev:sample2": "tsnd --respawn main --watch **/*.ts file=sample2",
-    "dev:input": "tsnd --respawn main --watch **/*.ts file=input",
     "test": "vitest -w"
   },
   "keywords": [],

@@ -18,11 +18,7 @@ declare global {
      * @param mapFn - A mapping function that takes the elements of each chunk as arguments and returns a value.
      * @returns An array of smaller arrays, each representing a chunk of the original array with the mapping function applied to each chunk.
      */
-    chunkMap<F extends T[] = T[]>(
-      this: T[],
-      length: number,
-      mapFn: (...el: T[]) => F
-    ): F[];
+    chunkMap<F extends T[] = T[]>(this: T[], length: number, mapFn: (...el: T[]) => F): F[];
 
     /**
      * Groups the values in the array by their occurrences.
@@ -56,87 +52,104 @@ declare global {
      * @param {number} startIndex - The index at which to start adding the values.
      * @returns {number[]} The original array with the values added at the specified indexes.
      */
-    addValuesAtIndex(
-      this: T[],
-      valuesToAdd: number[],
-      startIndex: number
-    ): number[];
+    addValuesAtIndex(this: T[], valuesToAdd: number[], startIndex: number): number[];
+
+    /**
+     * Generates a 2D matrix by applying a mapping function to each element of a 2D array.
+     *
+     * @template T - The type of elements in the input array.
+     * @template U - The type of elements in the output matrix. Defaults to T.
+     * @param {ArrayLike<T>[]} this - The input array.
+     * @param {(v: T, k: number) => U} mapfn - The mapping function to apply to each element.
+     * @return {U[][]} - The generated 2D matrix.
+     */
+    // toMatrix<T, U>(this: ArrayLike<T>[], mapfn: (v: T, k: number) => U): U[][];
+    // toMatrix<T>(this: ArrayLike<T>[]): T[][];
+    toMatrix<T, U>(
+      this: ArrayLike<T>[],
+      mapfn?: (v: T, k: [row: number, col: number], matrix: U[][]) => U
+    ): U[][];
+
+    /**
+     * Generates a new matrix by applying a mapping function to each element of the input array of arrays.
+     *
+     * @template T - The type of the elements in the input array.
+     * @template U - The type of the elements in the output matrix.
+     * @param {ArrayLike<T>[]} this - The input array of arrays.
+     * @param {function(T, number): V} [mapfn=(v: T, k: number) => v] - The mapping function to apply to each element.
+     * @return {U[][]} - The resulting matrix after applying the mapping function.
+     */
+    printMatrix<T, U>(this: T[][], mapfn?: (v: T, k: number) => U): void;
   }
 }
 
 /***********************************************/
 /******************** CHUNK ********************/
 /***********************************************/
-if (!Array.prototype.chunk) {
-  Array.prototype.chunk = function <T>(this: T[], length: number) {
+Object.defineProperty(Array.prototype, "chunk", {
+  value: function <T>(this: T[], length: number) {
     const res: T[][] = [];
     for (let i = 0; i < this.length; i += length) {
       res.push(this.slice(i, i + length));
     }
     return res;
-  };
-} else {
-  throw new Error("chunk already exist!");
-}
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
 
 /***************************************************/
 /******************** CHUNK_MAP ********************/
 /***************************************************/
-if (!Array.prototype.chunkMap) {
-  Array.prototype.chunkMap = function <T, F = T[]>(
-    this: T[],
-    length: number,
-    mapFn: (...el: T[]) => F
-  ) {
+Object.defineProperty(Array.prototype, "chunkMap", {
+  value: function <T, F = T[]>(this: T[], length: number, mapFn: (...el: T[]) => F) {
     const res: F[] = [];
     for (let i = 0; i < this.length; i += length) {
       const resFn = mapFn(...this.slice(i, i + length));
       res.push(resFn);
     }
     return res;
-  };
-} else {
-  throw new Error("chunkMap already exist!");
-}
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
 
 /**************************************************/
 /******************** GROUP_BY ********************/
 /**************************************************/
-if (!Array.prototype.groupBy) {
-  Array.prototype.groupBy = function <T extends PropertyKey>(
-    this: T[]
-  ): Record<T, number> {
+Object.defineProperty(Array.prototype, "groupBy", {
+  value: function <T extends PropertyKey>(this: T[]): Record<T, number> {
     return this.reduce((result, item) => {
       return {
         ...result,
         [item]: (result[item] || 0) + 1,
       };
     }, {} as Record<T, number>);
-  };
-} else {
-  throw new Error("groupBy already exist!");
-}
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
 
 /*********************************************/
 /******************** SUM ********************/
 /*********************************************/
-if (!Array.prototype.sum) {
-  Array.prototype.sum = function (this: number[]) {
+Object.defineProperty(Array.prototype, "sum", {
+  value: function (this: number[]) {
     return this.reduce((sum, n) => sum + n, 0);
-  };
-} else {
-  throw new Error("sum already exist!");
-}
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
 
 /*************************************************************/
 /******************** ADD_VALUES_AT_INDEX ********************/
 /*************************************************************/
-if (!Array.prototype.addValuesAtIndex) {
-  Array.prototype.addValuesAtIndex = function (
-    this: number[],
-    valuesToAdd: number[],
-    startIndex: number
-  ) {
+Object.defineProperty(Array.prototype, "addValuesAtIndex", {
+  value: function (this: number[], valuesToAdd: number[], startIndex: number) {
     for (let i = 0; i < valuesToAdd.length; i++) {
       const index = i + startIndex;
       if (index < this.length) {
@@ -147,7 +160,42 @@ if (!Array.prototype.addValuesAtIndex) {
     }
 
     return this;
-  };
-} else {
-  throw new Error("addValuesAtIndex already exist!");
-}
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
+
+/***************************************************/
+/******************** TO_MATRIX ********************/
+/***************************************************/
+Object.defineProperty(Array.prototype, "toMatrix", {
+  value: function <T, U>(
+    this: ArrayLike<T>[],
+    mapfn = (v: T, k: [row: number, col: number], matrix: U[][]) => v
+  ): U[][] {
+    const rows: number = this.length;
+    const cols: number = this[0].length;
+    const matrix: U[][] = Array.from({ length: rows }, () => new Array<U>(cols));
+    for (let row: number = 0; row < rows; row++) {
+      for (let col: number = 0; col < cols; col++) {
+        matrix[row][col] = mapfn(this[row][col], [row, col], matrix) as unknown as U;
+      }
+    }
+    return matrix;
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
+
+Object.defineProperty(Array.prototype, "printMatrix", {
+  value: function <T, U>(this: T[][], mapfn = (v: T, k: number) => v) {
+    for (let row of this) {
+      console.log(row.map(mapfn).join(""));
+    }
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
