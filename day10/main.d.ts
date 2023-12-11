@@ -3,7 +3,7 @@ declare global {
     value: string;
     row: number;
     col: number;
-    neighbors: { row: number; col: number }[];
+    neighbors: Coord[];
   };
 
   type Coord = {
