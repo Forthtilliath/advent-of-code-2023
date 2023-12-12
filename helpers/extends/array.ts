@@ -80,6 +80,14 @@ declare global {
      * @return {U[][]} - The resulting matrix after applying the mapping function.
      */
     printMatrix<T, U>(this: T[][], mapfn?: (v: T, k: number) => U): void;
+
+    /**
+     * A function that takes a count parameter and returns a new array with the original array repeated count times.
+     *
+     * @param {number} count - The number of times to repeat the original array.
+     * @return {T[]} - The new array with the original array repeated count times.
+     */
+    repeat<T>(this: T[], count: number): T[];
   }
 }
 
@@ -193,10 +201,24 @@ Object.defineProperty(Array.prototype, "toMatrix", {
 /******************** PRINT_MATRIX ********************/
 /******************************************************/
 Object.defineProperty(Array.prototype, "printMatrix", {
-  value: function <T, U>(this: T[][], mapfn = (v: T, k: number) => v) {
+  value: function <T>(this: T[][], mapfn = (v: T, k: number) => v) {
     for (let row of this) {
       console.log(row.map(mapfn).join(""));
     }
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
+
+[].join();
+
+/************************************************/
+/******************** REPEAT ********************/
+/************************************************/
+Object.defineProperty(Array.prototype, "repeat", {
+  value: function <T>(this: T[], count: number): T[] {
+    return Array(count).fill(this).flat()
   },
   writable: false,
   enumerable: false,

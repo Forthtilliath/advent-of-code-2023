@@ -27,58 +27,71 @@ declare global {
      * @returns An array of numbers representing the filtered numbers from the string.
      */
     filterNumbers(): number[];
+
+    /**
+     * Concatenates the string with itself `count` number of times, separated by the `separator`.
+     *
+     * @param {number} count - The number of times the string should be concatenated with itself.
+     * @param {string} separator - The string used to separate each concatenation.
+     * @return {string} - The resulting string after concatenation.
+     */
+    repeatWithSep(this: string, count: number, separator: string): string;
   }
 }
 
 /******************************************************/
 /******************** ALL_INDEX_OF ********************/
 /******************************************************/
-if (!String.prototype.allIndexOf) {
-  String.prototype.allIndexOf = function (
-    this: string,
-    searchString: string,
-    position?: number
-  ) {
+Object.defineProperty(String.prototype, "allIndexOf", {
+  value: function (this: string, searchString: string, position?: number) {
     const matches = Array.from(this.matchAll(new RegExp(searchString, "gi")));
     if (matches.length === 0) return [];
 
-    const indexes = matches
-      .filter((m) => m.index !== undefined)
-      .map((a) => a.index!);
+    const indexes = matches.filter((m) => m.index !== undefined).map((a) => a.index!);
 
     if (!position) return indexes;
 
     return indexes.filter((i) => i > position);
-  };
-} else {
-  throw new Error("allIndexOf already exist!");
-}
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
 
 /************************************************************/
 /******************** MATCH_ALL_AS_ARRAY ********************/
 /************************************************************/
-if (!String.prototype.matchAllAsArray) {
-  String.prototype.matchAllAsArray = function <T = unknown>(
-    this: string,
-    regex: RegExp
-  ): T[] {
+Object.defineProperty(String.prototype, "matchAllAsArray", {
+  value: function <T = unknown>(this: string, regex: RegExp): T[] {
     return Array.from(this.matchAll(regex)) as T[];
-  };
-} else {
-  throw new Error("matchAllAsArray already exist!");
-}
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
 
 /********************************************************/
 /******************** FILTER_NUMBERS ********************/
 /********************************************************/
-if (!String.prototype.filterNumbers) {
-  String.prototype.filterNumbers = function <T = unknown>(
-    this: string
-  ): number[] {
+Object.defineProperty(String.prototype, "filterNumbers", {
+  value: function (this: string): number[] {
     const regex = /\d+/g;
     const matches = this.match(regex) || [];
     return matches.map(Number);
-  };
-} else {
-  throw new Error("filterNumbers already exist!");
-}
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
+
+/***************************************************************/
+/******************** REPEAT_WITH_SEPARATOR ********************/
+/***************************************************************/
+Object.defineProperty(String.prototype, "repeatWithSep", {
+  value: function (this: string, count: number, separator: string): string {
+    return Array(count).fill(this).join(separator);
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});

@@ -27,28 +27,30 @@ declare global {
 /************************************************/
 /******************** CONCAT ********************/
 /************************************************/
-if (!Number.prototype.concat) {
-  Number.prototype.concat = function (
+Object.defineProperty(Number.prototype, "concat", {
+  value: function (
     this: number,
     value: number | string | boolean
   ) {
     return Number(this).toString() + value.toString();
-  };
-} else {
-  throw new Error("concat already exist!");
-}
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
 
 /*****************************************************/
 /******************** IS_IN_RANGE ********************/
 /*****************************************************/
-if (!Number.prototype.isInRange) {
-  Number.prototype.isInRange = function (
+Object.defineProperty(Number.prototype, "isInRange", {
+  value: function (
     this: number,
     min: number,
     max: number
   ) {
     return min <= this && this <= max;
-  };
-} else {
-  throw new Error("isInRange already exist!");
-}
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
