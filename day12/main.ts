@@ -23,7 +23,7 @@ export function input2(input: string[]): number {
   return sum;
 }
 
-function countArrangements(line: string[], damagedSprings: number[]): number {
+export function countArrangements(line: string[], damagedSprings: number[]): number {
   const memo: Record<string, number> = {};
 
   function memoizedCountArrangements(iLine = 0, iDamagedSprings = 0, count = 0): number {
