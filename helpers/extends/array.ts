@@ -33,6 +33,14 @@ declare global {
     groupBy<T extends PropertyKey>(this: T[]): Record<T, number>;
 
     /**
+     * Splits an array into subarrays based on a separator.
+     *
+     * @param {string} separator - The string used to separate the elements of the array.
+     * @returns {T[][]} An array of subarrays.
+     */
+    split<T>(this: T[], separator: string): T[][];
+
+    /**
      * Calculates the sum of all the elements in the array.
      *
      * @returns {number} The sum of all the elements in the array.
@@ -88,6 +96,13 @@ declare global {
      * @return {T[]} - The new array with the original array repeated count times.
      */
     repeat<T>(this: T[], count: number): T[];
+
+    /**
+     * A function that checks if every element in the array is equal to the first element.
+     *
+     * @return {boolean} Returns true if every element in the array is equal to the first element, otherwise false.
+     */
+    areAllEquals<T>(this: T[]): boolean;
   }
 }
 
@@ -129,12 +144,34 @@ Object.defineProperty(Array.prototype, "chunkMap", {
 /**************************************************/
 Object.defineProperty(Array.prototype, "groupBy", {
   value: function <T extends PropertyKey>(this: T[]): Record<T, number> {
-    return this.reduce((result, item) => {
-      return {
-        ...result,
-        [item]: (result[item] || 0) + 1,
-      };
-    }, {} as Record<T, number>);
+    const map = this.reduce<Map<T, number>>((m, v) => m.set(v, (m.get(v) ?? 0) + 1), new Map());
+    return Object.fromEntries(Array.from(map)) as Record<T, number>;
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
+
+/**************************************************/
+/******************** SPLIT ********************/
+/**************************************************/
+Object.defineProperty(Array.prototype, "split", {
+  value: function <T>(this: T[], separator: string): T[][] {
+    let result: T[][] = [];
+    let temp: T[] = [];
+
+    for (let x of this) {
+      if (x) {
+        temp.push(x);
+      } else {
+        result.push(temp);
+        temp = [];
+      }
+    }
+
+    result.push(temp);
+
+    return result;
   },
   writable: false,
   enumerable: false,
@@ -218,7 +255,19 @@ Object.defineProperty(Array.prototype, "printMatrix", {
 /************************************************/
 Object.defineProperty(Array.prototype, "repeat", {
   value: function <T>(this: T[], count: number): T[] {
-    return Array(count).fill(this).flat()
+    return Array(count).fill(this).flat();
+  },
+  writable: false,
+  enumerable: false,
+  configurable: false,
+});
+
+/********************************************************/
+/******************** ARE_ALL_EQUALS ********************/
+/********************************************************/
+Object.defineProperty(Array.prototype, "areAllEquals", {
+  value: function <T>(this: T[]): boolean {
+    return this.every((item) => this.indexOf(item) === 0);
   },
   writable: false,
   enumerable: false,
