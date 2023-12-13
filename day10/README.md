@@ -91,7 +91,7 @@ You can count the distance each tile in the loop is from the starting point like
     .....
     
 
-In this example, the farthest point from the start is `_4_` steps away.
+In this example, the farthest point from the start is __`4`__ steps away.
 
 Here's the more complex loop again:
 
@@ -157,7 +157,7 @@ In fact, there doesn't even need to be a full tile path to the outside for tiles
     ..........
     
 
-In both of the above examples, `_4_` tiles are enclosed by the loop.
+In both of the above examples, __`4`__ tiles are enclosed by the loop.
 
 Here's a larger example:
 
@@ -187,7 +187,7 @@ The above sketch has many random bits of ground, some of which are in the loop (
     OOOOL---JOLJOLJLJOOO
     
 
-In this larger example, `_8_` tiles are enclosed by the loop.
+In this larger example, __`8`__ tiles are enclosed by the loop.
 
 Any tile that isn't part of the main loop can count as being enclosed by the loop. Here's another example with many bits of junk pipe lying around that aren't connected to the main loop at all:
 
@@ -217,6 +217,6 @@ Here are just the tiles that are _enclosed by the loop_ marked with `I`:
     L7JLJL-JLJLJL--JLJ.L
     
 
-In this last example, `_10_` tiles are enclosed by the loop.
+In this last example, __`10`__ tiles are enclosed by the loop.
 
 Figure out whether you have time to search for the nest by calculating the area within the loop. _How many tiles are enclosed by the loop?_

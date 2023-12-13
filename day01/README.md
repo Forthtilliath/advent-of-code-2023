@@ -21,7 +21,7 @@ For example:
     treb7uchet
     
 
-In this example, the calibration values of these four lines are `12`, `38`, `15`, and `77`. Adding these together produces `_142_`.
+In this example, the calibration values of these four lines are `12`, `38`, `15`, and `77`. Adding these together produces __`142`__.
 
 Consider your entire calibration document. _What is the sum of all of the calibration values?_
 
@@ -41,6 +41,6 @@ Equipped with this new information, you now need to find the real first and last
     7pqrstsixteen
     
 
-In this example, the calibration values are `29`, `83`, `13`, `24`, `42`, `14`, and `76`. Adding these together produces `_281_`.
+In this example, the calibration values are `29`, `83`, `13`, `24`, `42`, `14`, and `76`. Adding these together produces __`281`__.
 
 _What is the sum of all of the calibration values?_

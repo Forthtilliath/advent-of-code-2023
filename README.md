@@ -2,25 +2,44 @@
 
 [See the Advent of Code site](https://adventofcode.com/)
 
-## Presentation 
+## Presentation
 
 Advent of Code is an annual set of Christmas-themed computer programming challenges that follow an Advent calendar.
 
 ## My progress
 
-|	Mon	  |	Tue	  |	Wed	  |	Thu	  |	Fri	  |	Sat	  |	Sun	  |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-|		    |		    |		    |		    |	1🟢   |	2🟢	  |	3🟢	|
-|	4🟢	  |	5🟢	  |	6🟢	  |	7🟢	  |	8🟢	  |	9🟢	  |	10🟢	|
-|	11🟢	|	12🟢	|	13🟦	|	14🟦	|	15🟦	|	16🟦	|	17🟦	|
-|	18🟦	|	19🟦	|	20🟦	|	21🟦	|	22🟦	|	23🟦	|	24🟦	|
-|	25🟦	|	26🟦	|	27🟦	|	28🟦	|	29🟦	|	30🟦	|		    |
+| **Day** | **Title**                                                                                               | **Stars** |
+| ------: | :------------------------------------------------------------------------------------------------------ | :-------: |
+|       1 | [Trebuchet?!](https://github.com/Forthtilliath/advent-of-code-2023/tree/main/day01)                     |     ✅     |
+|       2 | [Cube Conundrum](https://github.com/Forthtilliath/advent-of-code-2023/tree/main/day02)                  |     ✅     |
+|       3 | [Gear Ratios](https://github.com/Forthtilliath/advent-of-code-2023/tree/main/day03)                     |     ✅     |
+|       4 | [Scratchcards](https://github.com/Forthtilliath/advent-of-code-2023/tree/main/day04)                    |     ✅     |
+|       5 | [If You Give A Seed A Fertilizer](https://github.com/Forthtilliath/advent-of-code-2023/tree/main/day05) |     ✅     |
+|       6 | [Wait For It](https://github.com/Forthtilliath/advent-of-code-2023/tree/main/day06)                     |     ✅     |
+|       7 | [Camel Cards](https://github.com/Forthtilliath/advent-of-code-2023/tree/main/day07)                     |     ✅     |
+|       8 | [Haunted Wasteland](https://github.com/Forthtilliath/advent-of-code-2023/tree/main/day08)               |     ✅     |
+|       9 | [Mirage Maintenance](https://github.com/Forthtilliath/advent-of-code-2023/tree/main/day09)              |     ✅     |
+|      10 | [Pipe Maze](https://github.com/Forthtilliath/advent-of-code-2023/tree/main/day10)                       |     ✅     |
+|      11 | [Cosmic Expansion](https://github.com/Forthtilliath/advent-of-code-2023/tree/main/day11)                |     ✅     |
+|      12 | [Hot Springs](https://github.com/Forthtilliath/advent-of-code-2023/tree/main/day12)                     |     ✅     |
+|      13 | [Point of Incidence](https://github.com/Forthtilliath/advent-of-code-2023/tree/main/day13)              |     ✅     |
+|      14 |                                                                                                         |     🟦    |
+|      15 |                                                                                                         |     🟦    |
+|      16 |                                                                                                         |     🟦    |
+|      17 |                                                                                                         |     🟦    |
+|      18 |                                                                                                         |     🟦    |
+|      19 |                                                                                                         |     🟦    |
+|      20 |                                                                                                         |     🟦    |
+|      21 |                                                                                                         |     🟦    |
+|      22 |                                                                                                         |     🟦    |
+|      23 |                                                                                                         |     🟦    |
+|      24 |                                                                                                         |     🟦    |
+|      25 |                                                                                                         |     🟦    |
 
-- 🟢 - Good
-- 🟡 - Works with bug/Not properly
-- 🔴 - Not successful
-- ⚪ - Missed day
-- 🟦 - Pending
+-   ✅ - Good
+-   🟧 - Works with bug/Not properly
+-   🟥 - Not successful
+-   🟦 - Pending / Missed day
 
 ## Commands
 
@@ -39,4 +58,4 @@ pnpm run dev day=1 separated
 pnpm run dev day=1 asArray=false
 ```
 
-Any argument with no values or no used is true by default
+Any argument with no values or not used is true by default

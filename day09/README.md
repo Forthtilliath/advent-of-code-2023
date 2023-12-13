@@ -32,21 +32,21 @@ To extrapolate, start by adding a new zero to the end of your list of zeroes; be
         0   0   0   0   0
     
 
-You can then start filling in placeholders from the bottom up. `A` needs to be the result of increasing `3` (the value to its left) by `0` (the value below it); this means `A` must be `_3_`:
+You can then start filling in placeholders from the bottom up. `A` needs to be the result of increasing `3` (the value to its left) by `0` (the value below it); this means `A` must be __`3`__:
 
     0   3   6   9  12  15   B
       3   3   3   3   3   3
         0   0   0   0   0
     
 
-Finally, you can fill in `B`, which needs to be the result of increasing `15` (the value to its left) by `3` (the value below it), or `_18_`:
+Finally, you can fill in `B`, which needs to be the result of increasing `15` (the value to its left) by `3` (the value below it), or __`18`__:
 
     0   3   6   9  12  15  18
       3   3   3   3   3   3
         0   0   0   0   0
     
 
-So, the next value of the first history is `_18_`.
+So, the next value of the first history is __`18`__.
 
 Finding all-zero differences for the second history requires an additional sequence:
 
@@ -64,7 +64,7 @@ Then, following the same process as before, work out the next value in each sequ
           0   0   0   0
     
 
-So, the next value of the second history is `_28_`.
+So, the next value of the second history is __`28`__.
 
 The third history requires even more sequences, but its next value can be found the same way:
 
@@ -75,9 +75,9 @@ The third history requires even more sequences, but its next value can be found 
              0   0   0
     
 
-So, the next value of the third history is `_68_`.
+So, the next value of the third history is __`68`__.
 
-If you find the next value for each history in this example and add them together, you get `_114_`.
+If you find the next value for each history in this example and add them together, you get __`114`__.
 
 Analyze your OASIS report and extrapolate the next value for each history. _What is the sum of these extrapolated values?_
 
@@ -97,8 +97,8 @@ In particular, here is what the third example history looks like when extrapolat
             0   0   0
     
 
-Adding the new values on the left side of each sequence from bottom to top eventually reveals the new left-most history value: `_5_`.
+Adding the new values on the left side of each sequence from bottom to top eventually reveals the new left-most history value: __`5`__.
 
-Doing this for the remaining example data above results in previous values of `_-3_` for the first history and `_0_` for the second history. Adding all three new values together produces `_2_`.
+Doing this for the remaining example data above results in previous values of `_-3_` for the first history and __`0`__ for the second history. Adding all three new values together produces __`2`__.
 
 Analyze your OASIS report again, this time extrapolating the _previous_ value for each history. _What is the sum of these extrapolated values?_

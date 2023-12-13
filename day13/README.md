@@ -62,7 +62,7 @@ The second pattern reflects across a horizontal line instead:
 
 This pattern reflects across the horizontal line between rows 4 and 5. Row 1 would reflect with a hypothetical row 8, but since that's not in the pattern, row 1 doesn't need to match anything. The remaining rows match: row 2 matches row 7, row 3 matches row 6, and row 4 matches row 5.
 
-To _summarize_ your pattern notes, add up _the number of columns_ to the left of each vertical line of reflection; to that, also add _100 multiplied by the number of rows_ above each horizontal line of reflection. In the above example, the first pattern's vertical line has `5` columns to its left and the second pattern's horizontal line has `4` rows above it, a total of `_405_`.
+To _summarize_ your pattern notes, add up _the number of columns_ to the left of each vertical line of reflection; to that, also add _100 multiplied by the number of rows_ above each horizontal line of reflection. In the above example, the first pattern's vertical line has `5` columns to its left and the second pattern's horizontal line has `4` rows above it, a total of __`405`__.
 
 Find the line of reflection in each of the patterns in your notes. _What number do you get after summarizing all of your notes?_
 
@@ -120,6 +120,6 @@ In the second pattern, the smudge can be fixed by changing the fifth symbol on r
 
 Now, the pattern has a different horizontal line of reflection between rows 1 and 2.
 
-Summarize your notes as before, but instead use the new different reflection lines. In this example, the first pattern's new horizontal line has 3 rows above it and the second pattern's new horizontal line has 1 row above it, summarizing to the value `_400_`.
+Summarize your notes as before, but instead use the new different reflection lines. In this example, the first pattern's new horizontal line has 3 rows above it and the second pattern's new horizontal line has 1 row above it, summarizing to the value __`400`__.
 
 In each pattern, fix the smudge and find the different line of reflection. _What number do you get after summarizing the new reflection line in each pattern in your notes?_

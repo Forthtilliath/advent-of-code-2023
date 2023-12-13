@@ -25,15 +25,15 @@ For example:
     Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
     
 
-In the above example, card 1 has five winning numbers (`41`, `48`, `83`, `86`, and `17`) and eight numbers you have (`83`, `86`, `6`, `31`, `17`, `9`, `48`, and `53`). Of the numbers you have, four of them (`48`, `83`, `17`, and `86`) are winning numbers! That means card 1 is worth `_8_` points (1 for the first match, then doubled three times for each of the three matches after the first).
+In the above example, card 1 has five winning numbers (`41`, `48`, `83`, `86`, and `17`) and eight numbers you have (`83`, `86`, `6`, `31`, `17`, `9`, `48`, and `53`). Of the numbers you have, four of them (`48`, `83`, `17`, and `86`) are winning numbers! That means card 1 is worth __`8`__ points (1 for the first match, then doubled three times for each of the three matches after the first).
 
-*   Card 2 has two winning numbers (`32` and `61`), so it is worth `_2_` points.
-*   Card 3 has two winning numbers (`1` and `21`), so it is worth `_2_` points.
-*   Card 4 has one winning number (`84`), so it is worth `_1_` point.
+*   Card 2 has two winning numbers (`32` and `61`), so it is worth __`2`__ points.
+*   Card 3 has two winning numbers (`1` and `21`), so it is worth __`2`__ points.
+*   Card 4 has one winning number (`84`), so it is worth __`1`__ point.
 *   Card 5 has no winning numbers, so it is worth no points.
 *   Card 6 has no winning numbers, so it is worth no points.
 
-So, in this example, the Elf's pile of scratchcards is worth `_13_` points.
+So, in this example, the Elf's pile of scratchcards is worth __`13`__ points.
 
 Take a seat in the large pile of colorful cards. _How many points are they worth in total?_
 
@@ -66,6 +66,6 @@ This time, the above example goes differently:
 *   Your fourteen instances of card 5 (one original and thirteen copies) have no matching numbers and win no more cards.
 *   Your one instance of card 6 (one original) has no matching numbers and wins no more cards.
 
-Once all of the originals and copies have been processed, you end up with `_1_` instance of card 1, `_2_` instances of card 2, `_4_` instances of card 3, `_8_` instances of card 4, `_14_` instances of card 5, and `_1_` instance of card 6. In total, this example pile of scratchcards causes you to ultimately have `_30_` scratchcards!
+Once all of the originals and copies have been processed, you end up with __`1`__ instance of card 1, __`2`__ instances of card 2, __`4`__ instances of card 3, __`8`__ instances of card 4, __`14`__ instances of card 5, and __`1`__ instance of card 6. In total, this example pile of scratchcards causes you to ultimately have __`30`__ scratchcards!
 
 Process all of the original and copied scratchcards until no more scratchcards are won. Including the original set of scratchcards, _how many total scratchcards do you end up with?_

@@ -24,7 +24,7 @@ In game 1, three sets of cubes are revealed from the bag (and then put back agai
 
 The Elf would first like to know which games would have been possible if the bag contained _only 12 red cubes, 13 green cubes, and 14 blue cubes_?
 
-In the example above, games 1, 2, and 5 would have been _possible_ if the bag had been loaded with that configuration. However, game 3 would have been _impossible_ because at one point the Elf showed you 20 red cubes at once; similarly, game 4 would also have been _impossible_ because the Elf showed you 15 blue cubes at once. If you add up the IDs of the games that would have been possible, you get `_8_`.
+In the example above, games 1, 2, and 5 would have been _possible_ if the bag had been loaded with that configuration. However, game 3 would have been _impossible_ because at one point the Elf showed you 20 red cubes at once; similarly, game 4 would also have been _impossible_ because the Elf showed you 15 blue cubes at once. If you add up the IDs of the games that would have been possible, you get __`8`__.
 
 Determine which games would have been possible if the bag had been loaded with only 12 red cubes, 13 green cubes, and 14 blue cubes. _What is the sum of the IDs of those games?_
 
@@ -51,6 +51,6 @@ Again consider the example games from earlier:
 *   Game 4 required at least 14 red, 3 green, and 15 blue cubes.
 *   Game 5 needed no fewer than 6 red, 3 green, and 2 blue cubes in the bag.
 
-The _power_ of a set of cubes is equal to the numbers of red, green, and blue cubes multiplied together. The power of the minimum set of cubes in game 1 is `48`. In games 2-5 it was `12`, `1560`, `630`, and `36`, respectively. Adding up these five powers produces the sum `_2286_`.
+The _power_ of a set of cubes is equal to the numbers of red, green, and blue cubes multiplied together. The power of the minimum set of cubes in game 1 is `48`. In games 2-5 it was `12`, `1560`, `630`, and `36`, respectively. Adding up these five powers produces the sum __`2286`__.
 
 For each game, find the minimum set of cubes that must have been present. _What is the sum of the power of these sets?_

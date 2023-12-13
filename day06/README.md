@@ -36,13 +36,13 @@ So, because the first race lasts 7 milliseconds, you only have a few options:
 *   Hold the button for _`6` milliseconds_, causing the boat to travel a total of _`6` millimeters_.
 *   Hold the button for _`7` milliseconds_. That's the entire duration of the race. You never let go of the button. The boat can't move until you let go of the button. Please make sure you let go of the button so the boat gets to move. _`0` millimeters_.
 
-Since the current record for this race is `9` millimeters, there are actually `_4_` different ways you could win: you could hold the button for `2`, `3`, `4`, or `5` milliseconds at the start of the race.
+Since the current record for this race is `9` millimeters, there are actually __`4`__ different ways you could win: you could hold the button for `2`, `3`, `4`, or `5` milliseconds at the start of the race.
 
-In the second race, you could hold the button for at least `4` milliseconds and at most `11` milliseconds and beat the record, a total of `_8_` different ways to win.
+In the second race, you could hold the button for at least `4` milliseconds and at most `11` milliseconds and beat the record, a total of __`8`__ different ways to win.
 
-In the third race, you could hold the button for at least `11` milliseconds and no more than `19` milliseconds and still beat the record, a total of `_9_` ways you could win.
+In the third race, you could hold the button for at least `11` milliseconds and no more than `19` milliseconds and still beat the record, a total of __`9`__ ways you could win.
 
-To see how much margin of error you have, determine the _number of ways you can beat the record_ in each race; in this example, if you multiply these values together, you get `_288_` (`4` \* `8` \* `9`).
+To see how much margin of error you have, determine the _number of ways you can beat the record_ in each race; in this example, if you multiply these values together, you get __`288`__ (`4` \* `8` \* `9`).
 
 Determine the number of ways you could beat the record in each race. _What do you get if you multiply these numbers together?_
 
@@ -63,6 +63,6 @@ So, the example from before:
     Distance:  940200
     
 
-Now, you have to figure out how many ways there are to win this single race. In this example, the race lasts for _`71530` milliseconds_ and the record distance you need to beat is _`940200` millimeters_. You could hold the button anywhere from `14` to `71516` milliseconds and beat the record, a total of `_71503_` ways!
+Now, you have to figure out how many ways there are to win this single race. In this example, the race lasts for _`71530` milliseconds_ and the record distance you need to beat is _`940200` millimeters_. You could hold the button anywhere from `14` to `71516` milliseconds and beat the record, a total of __`71503`__ ways!
 
 _How many ways can you beat the record in this one much longer race?_

@@ -98,13 +98,13 @@ The first line of the above example would become:
 
 In the above example, after unfolding, the number of possible arrangements for some rows is now much larger:
 
-*   `???.### 1,1,3` - `_1_` arrangement
-*   `.??..??...?##. 1,1,3` - `_16384_` arrangements
-*   `?#?#?#?#?#?#?#? 1,3,1,6` - `_1_` arrangement
-*   `????.#...#... 4,1,1` - `_16_` arrangements
-*   `????.######..#####. 1,6,5` - `_2500_` arrangements
-*   `?###???????? 3,2,1` - `_506250_` arrangements
+*   `???.### 1,1,3` - __`1`__ arrangement
+*   `.??..??...?##. 1,1,3` - __`16384`__ arrangements
+*   `?#?#?#?#?#?#?#? 1,3,1,6` - __`1`__ arrangement
+*   `????.#...#... 4,1,1` - __`16`__ arrangements
+*   `????.######..#####. 1,6,5` - __`2500`__ arrangements
+*   `?###???????? 3,2,1` - __`506250`__ arrangements
 
-After unfolding, adding all of the possible arrangement counts together produces `_525152_`.
+After unfolding, adding all of the possible arrangement counts together produces __`525152`__.
 
 Unfold your condition records; _what is the new sum of possible arrangement counts?_

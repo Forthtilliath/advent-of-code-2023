@@ -52,6 +52,6 @@ So, the first step is to put the hands in order of strength:
 *   `KK677` and `KTJJT` are both _two pair_. Their first cards both have the same label, but the second card of `KK677` is stronger (`K` vs `T`), so `KTJJT` gets rank _2_ and `KK677` gets rank _3_.
 *   `T55J5` and `QQQJA` are both _three of a kind_. `QQQJA` has a stronger first card, so it gets rank _5_ and `T55J5` gets rank _4_.
 
-Now, you can determine the total winnings of this set of hands by adding up the result of multiplying each hand's bid with its rank (`765` \* 1 + `220` \* 2 + `28` \* 3 + `684` \* 4 + `483` \* 5). So the _total winnings_ in this example are `_6440_`.
+Now, you can determine the total winnings of this set of hands by adding up the result of multiplying each hand's bid with its rank (`765` \* 1 + `220` \* 2 + `28` \* 3 + `684` \* 4 + `483` \* 5). So the _total winnings_ in this example are __`6440`__.
 
 Find the rank of every hand in your set. _What are the total winnings?_
