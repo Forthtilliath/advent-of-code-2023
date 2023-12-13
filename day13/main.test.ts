@@ -17,12 +17,12 @@ describe("Day " + DAY, () => {
     }); 
   });
 
-  // describe("Part 2", () => {
-  //   it("sample should return the good value", () => {
-  //     expect(input2(sample)).toBe(0);
-  //   });
-  //   it("input should return the good value", () => {
-  //     expect(input2(input)).toBe(0);
-  //   });
-  // });
+  describe("Part 2", () => {
+    it("sample should return the good value", () => {
+      expect(input2(sample)).toBe(400);
+    });
+    it("input should return the good value", () => {
+      expect(input2(input)).toBe(28210);
+    });
+  });
 });
