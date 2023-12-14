@@ -1,5 +1,7 @@
+import { add } from "./number";
+
 export function sum(arr: number[]): number {
-  return arr.reduce((sum, n) => sum + n, 0);
+  return arr.reduce(add, 0);
 }
 export function multiply(arr: number[]): number {
   return arr.reduce((sum, n) => sum * n, 1);
